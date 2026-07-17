@@ -10,24 +10,10 @@ const ownerRoutes = require('./routes/ownerRoutes');
 
 const app = express();
 
-// Allowed frontend origins. Add CLIENT_URL as an env var on Render pointing
-// to your Vercel URL (e.g. https://store-ratings-platform-eight.vercel.app).
-// Local dev (localhost:5173) is always allowed.
-const allowedOrigins = [
-  'http://localhost:5173',
-  process.env.CLIENT_URL,
-].filter(Boolean);
-
-app.use(cors({
-  origin: (origin, callback) => {
-    // allow requests with no origin (curl, Postman, server-to-server)
-    if (!origin || allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-    console.warn('Blocked by CORS:', origin);
-    return callback(new Error('Not allowed by CORS'));
-  },
-}));
+// TEMPORARY: allow all origins so login/register work while you debug
+// CLIENT_URL matching on Render. Once confirmed working, switch back to
+// the restricted version with the allowedOrigins check.
+app.use(cors());
 
 app.use(express.json());
 
