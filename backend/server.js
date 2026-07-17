@@ -10,9 +10,7 @@ const ownerRoutes = require('./routes/ownerRoutes');
 
 const app = express();
 
-// TEMPORARY: allow all origins so login/register work while you debug
-// CLIENT_URL matching on Render. Once confirmed working, switch back to
-// the restricted version with the allowedOrigins check.
+
 app.use(cors());
 
 app.use(express.json());
