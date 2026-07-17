@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 import Layout from '../components/Layout';
 import api from '../api/axios';
 
@@ -6,6 +7,7 @@ export default function AdminAddUser() {
   const [tab, setTab] = useState('user');
 
   const [userForm, setUserForm] = useState({ name: '', email: '', address: '', password: '', role: 'user' });
+  const [showPassword, setShowPassword] = useState(false);
   const [userMsg, setUserMsg] = useState({ type: '', text: '' });
   const [userLoading, setUserLoading] = useState(false);
 
@@ -78,7 +80,27 @@ export default function AdminAddUser() {
               </div>
               <div className="field">
                 <label>Password</label>
-                <input type="password" value={userForm.password} onChange={(e) => setUserForm({ ...userForm, password: e.target.value })} required />
+                <div style={{ position: 'relative' }}>
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    value={userForm.password}
+                    onChange={(e) => setUserForm({ ...userForm, password: e.target.value })}
+                    required
+                    style={{ paddingRight: 40 }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((s) => !s)}
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    style={{
+                      position: 'absolute', right: 10, top: '50%', transform: 'translateY(-50%)',
+                      background: 'none', border: 'none', cursor: 'pointer', padding: 2,
+                      display: 'flex', color: 'var(--text-muted)',
+                    }}
+                  >
+                    {showPassword ? <EyeOff size={17} /> : <Eye size={17} />}
+                  </button>
+                </div>
                 <div className="field-hint">8–16 characters, 1 uppercase letter, 1 special character</div>
               </div>
               <div className="field">
